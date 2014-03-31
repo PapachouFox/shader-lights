@@ -23,3 +23,8 @@
 #Cmake
 build/
 CMakeLists.txt.user
+
+Debug/
+*.opensdf
+*.sdf
+*.suo
