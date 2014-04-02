@@ -1,24 +1,27 @@
-varying vec2 vTexCoord;
+varying vec2 v_TexCoord;
+
+uniform vec3 u_LightPosition;
+uniform vec4 u_AmbientLightColor;
+uniform vec4 u_DiffuseLightColor;
+uniform vec4 u_SpecularLightColor;
+
 void main()
 {
 	vec3 normal, lightDir, viewVector, halfVector;
-	vec4 diffuse, ambient, globalAmbient, specular = vec4(0.0);
+	vec4 specular = vec4(0.0);
 	float NdotL,NdotHV;
 
-	lightDir = normalize(vec3(gl_LightSource[0].position));
+	normal = normalize(gl_NormalMatrix * gl_Normal);
+	lightDir = normalize(vec3(u_LightPosition));
 
 	NdotL = max(dot(normal, lightDir), 0.0);
 
-	diffuse = gl_FrontMaterial.diffuse * gl_LightSource[0].diffuse;
-	ambient = gl_FrontMaterial.ambient * gl_LightSource[0].ambient;
-	globalAmbient = gl_LightModel.ambient * gl_FrontMaterial.ambient;
-
 	if (NdotL > 0.0) {
-		NdotHV = max(dot(normal, normalize(gl_LightSource[0].halfVector.xyz)),0.0);
-		specular = gl_FrontMaterial.specular * gl_LightSource[0].specular * pow(NdotHV,gl_FrontMaterial.shininess);
+		NdotHV = max(dot(normal, normalize(u_LightPosition)),0.0);
+		specular = u_SpecularLightColor * pow(NdotHV, gl_FrontMaterial.shininess);
 	}
 
-	gl_FrontColor = globalAmbient + NdotL * diffuse + ambient + specular;
+	gl_FrontColor = normalize(u_AmbientLightColor + NdotL * u_DiffuseLightColor + specular);
 	gl_Position = ftransform();
-	vTexCoord = gl_MultiTexCoord0.xy;	
+	v_TexCoord = gl_MultiTexCoord0.xy;	
 } 

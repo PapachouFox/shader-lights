@@ -13,7 +13,6 @@ void main() {
 	
 	NdotL = max(dot(normal, lightDir), 0.0);
 
-	diffuse = gl_FrontMaterial.diffuse * u_DiffuseLightColor;
 	gl_FrontColor =  NdotL * u_DiffuseLightColor;
 
 	gl_Position = ftransform();

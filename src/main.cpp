@@ -26,8 +26,8 @@ int main(int argc, char** argv){
     BasicShaderCallBack* mc = new BasicShaderCallBack(device);
     if (gpu){
        defaultShader = gpu->addHighLevelShaderMaterialFromFiles(
-                   "../shaders/diffuse.vert",
-                   "../shaders/diffuse.frag",
+                   "../shaders/specular.vert",
+                   "../shaders/default.frag",
                    mc, video::EMT_SOLID, 0);
     }
     mc->drop();

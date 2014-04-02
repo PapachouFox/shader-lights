@@ -26,10 +26,12 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
     services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&pos), 3);
 
     // set ambient light color (r g b a)
-    video::SColorf ambientCol(1.0f,1.0f,1.0f,1.0f);
+    video::SColorf ambientCol(0.1f,0.1f,0.1f,1.0f);
     services->setVertexShaderConstant("u_AmbientLightColor", reinterpret_cast<f32*>(&ambientCol), 4);
     video::SColorf diffuseCol(1.0f,1.0f,1.0f,1.0f);
     services->setVertexShaderConstant("u_DiffuseLightColor", reinterpret_cast<f32*>(&diffuseCol), 4);
+    video::SColorf specularCol(1.0f,0.0f,0.0f,1.0f);
+    services->setVertexShaderConstant("u_SpecularLightColor", reinterpret_cast<f32*>(&specularCol), 4);
 
     // set texture, for textures you can use both an int and a float setPixelShaderConstant interfaces (You need it only for an OpenGL driver).
     s32 TextureLayerID = 0;
