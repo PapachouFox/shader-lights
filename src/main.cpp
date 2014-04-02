@@ -2,7 +2,7 @@
 #include <iostream>
 #include "BasicShaderCallBack.h"
 #include "EventReceiver.h"
-#include "Librarian.h"
+#include "CustomNode.h"
 using namespace irr;
 
 #ifdef _IRR_WINDOWS_
@@ -19,7 +19,7 @@ int main(int argc, char** argv){
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
 
-    smgr->addCameraSceneNode(0, core::vector3df(90,120,-180), core::vector3df(0,120,0));
+    smgr->addCameraSceneNode(0, core::vector3df(0,0,-180), core::vector3df(0,0,0));
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
@@ -34,7 +34,7 @@ int main(int argc, char** argv){
     }
     mc->drop();
 
-    Librarian* lib = new Librarian(smgr, driver);
+    CustomNode* lib = new CustomNode(smgr, driver);
     lib->SetMaterial(defaultShader);
 
     SAppContext context;
