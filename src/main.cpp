@@ -18,19 +18,21 @@ int main(int argc, char** argv){
     scene::ISceneManager* smgr = device->getSceneManager();
     gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
 
+
+    smgr->addCameraSceneNode(0, core::vector3df(90,120,-180), core::vector3df(0,120,0));
+    //smgr->addLightSceneNode(0, cam->getPosition(), video::SColorf(1.0f, 1.0f, 1.0f), 0.f);
+
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
     s32 defaultShader = 0;
     BasicShaderCallBack* mc = new BasicShaderCallBack(device);
     if (gpu){
        defaultShader = gpu->addHighLevelShaderMaterialFromFiles(
-                   "../shaders/default.vert", "vertexMain", video::EVST_VS_1_1,
-                   "../shaders/default.frag", "pixelMain", video::EPST_PS_1_1,
-                   mc, video::EMT_SOLID, 0, video::EGSL_DEFAULT);
+                   "../shaders/default.vert",
+                   "../shaders/default.frag",
+                   mc, video::EMT_SOLID, 0);
     }
     mc->drop();
-
-    smgr->addCameraSceneNode(0, core::vector3df(90,120,-180), core::vector3df(0,120,0));
 
     Librarian* lib = new Librarian(smgr, driver);
     lib->SetMaterial(defaultShader);
