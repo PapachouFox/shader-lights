@@ -20,6 +20,13 @@ int main(int argc, char** argv){
     scene::ISceneManager* smgr = device->getSceneManager();
 
     smgr->addCameraSceneNode(0, core::vector3df(0,0,-180), core::vector3df(0,0,0));
+    scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(), video::SColorf(), 0.f);
+
+    scene::ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(core::vector3df(), 100.f, 0.001f);
+    if(anim){
+        light->addAnimator(anim);
+        anim->drop();
+    }
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
@@ -49,6 +56,8 @@ int main(int argc, char** argv){
         smgr->drawAll();
         device->getGUIEnvironment()->drawAll();
         driver->endScene();
+
+        light_source = light->getAbsolutePosition();
     }
 
     delete lib;

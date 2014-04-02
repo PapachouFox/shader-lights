@@ -17,12 +17,6 @@ CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
             node->setMaterialTexture (1, normalMap);
         }
     }
-
-    scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.0f, 0.3f, 0.0f));
-    if(anim){
-        node->addAnimator(anim);
-        anim->drop();
-    }
 }
 
 CustomNode::~CustomNode(){

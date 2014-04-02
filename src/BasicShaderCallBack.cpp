@@ -1,6 +1,7 @@
 #include "BasicShaderCallBack.h"
 
 f32 model_shininess = 10;
+core::vector3df light_source;
 
 BasicShaderCallBack::BasicShaderCallBack(IrrlichtDevice *irrDevice){
     this->device = irrDevice;
@@ -12,6 +13,8 @@ BasicShaderCallBack::BasicShaderCallBack(IrrlichtDevice *irrDevice){
     scrollbar->setMin(0);
     scrollbar->setMax(50);
     scrollbar->setPos(10);
+
+    light_source = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
 }
 
 void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* services, s32 userData){
@@ -32,8 +35,7 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
     services->setVertexShaderConstant("u_ProjectionMatrix", worldViewProj.pointer(), 16);
 
     // set camera position
-    core::vector3df pos = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
-    services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&pos), 3);
+    services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&light_source), 3);
 
     // set ambient light color (r g b a)
     video::SColorf ambientCol(0.0f,0.0f,0.0f,1.0f);
