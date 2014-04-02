@@ -18,9 +18,7 @@ int main(int argc, char** argv){
     scene::ISceneManager* smgr = device->getSceneManager();
     gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
 
-
     smgr->addCameraSceneNode(0, core::vector3df(90,120,-180), core::vector3df(0,120,0));
-    //smgr->addLightSceneNode(0, cam->getPosition(), video::SColorf(1.0f, 1.0f, 1.0f), 0.f);
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
@@ -28,8 +26,8 @@ int main(int argc, char** argv){
     BasicShaderCallBack* mc = new BasicShaderCallBack(device);
     if (gpu){
        defaultShader = gpu->addHighLevelShaderMaterialFromFiles(
-                   "../shaders/default.vert",
-                   "../shaders/default.frag",
+                   "../shaders/diffuse.vert",
+                   "../shaders/diffuse.frag",
                    mc, video::EMT_SOLID, 0);
     }
     mc->drop();

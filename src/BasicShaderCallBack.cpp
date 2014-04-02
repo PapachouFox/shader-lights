@@ -23,21 +23,16 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
 
     // set camera position
     core::vector3df pos = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
-    services->setVertexShaderConstant("u_LightPos", reinterpret_cast<f32*>(&pos), 3);
+    services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&pos), 3);
 
-    // set light color
-    video::SColorf col(0.0f,1.0f,1.0f,0.0f);
-    services->setVertexShaderConstant("u_LightColor", reinterpret_cast<f32*>(&col), 4);
-
-    // set transposed world matrix
-    core::matrix4 world = driver->getTransform(video::ETS_WORLD);
-    world = world.getTransposed();
-    services->setVertexShaderConstant("u_TransWorld", world.pointer(), 16);
+    // set ambient light color (r g b a)
+    video::SColorf ambientCol(1.0f,1.0f,1.0f,1.0f);
+    services->setVertexShaderConstant("u_AmbientLightColor", reinterpret_cast<f32*>(&ambientCol), 4);
+    video::SColorf diffuseCol(1.0f,1.0f,1.0f,1.0f);
+    services->setVertexShaderConstant("u_DiffuseLightColor", reinterpret_cast<f32*>(&diffuseCol), 4);
 
     // set texture, for textures you can use both an int and a float setPixelShaderConstant interfaces (You need it only for an OpenGL driver).
     s32 TextureLayerID = 0;
     services->setPixelShaderConstant("u_texture", (float*)&TextureLayerID, 1);
-    /*s32 NormalLayerID = 1;
-    services->setPixelShaderConstant("u_normal", (float*)&NormalLayerID, 1);*/
 }
 

@@ -1,6 +1,10 @@
-varying vec2 vTexCoord;
+uniform vec4 u_AmbientLightColor;
+
+varying vec2 v_TexCoord;
+
 void main()
 {
+	gl_FrontColor =  u_AmbientLightColor;
 	gl_Position = ftransform();
-	vTexCoord = gl_MultiTexCoord0.xy;
+	v_TexCoord = gl_MultiTexCoord0.xy;
 }

@@ -7,7 +7,8 @@ Librarian::Librarian(scene::ISceneManager* mgr, video::IVideoDriver* driver){
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         video::ITexture* texture = driver->getTexture("../librarian/act_texture.jpg");
         if(texture){
-            node->setMaterialTexture (0, texture);
+            node->setMaterialTexture(0, texture);
+            node->getMaterial(0).DiffuseColor.set(100, 255, 0, 0);
         }
         /*
         video::ITexture* normalMap = driver->getTexture("../librarian/act_norm.jpg");
