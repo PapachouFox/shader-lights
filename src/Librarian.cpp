@@ -8,7 +8,6 @@ Librarian::Librarian(scene::ISceneManager* mgr, video::IVideoDriver* driver){
         video::ITexture* texture = driver->getTexture("../librarian/act_texture.jpg");
         if(texture){
             node->setMaterialTexture(0, texture);
-            node->getMaterial(0).Shininess = 10;
         }
         /*
         video::ITexture* normalMap = driver->getTexture("../librarian/act_norm.jpg");

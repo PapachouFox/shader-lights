@@ -1,5 +1,7 @@
 #include <irrlicht/irrlicht.h>
+#include <iostream>
 #include "BasicShaderCallBack.h"
+#include "EventReceiver.h"
 #include "Librarian.h"
 using namespace irr;
 
@@ -16,13 +18,13 @@ int main(int argc, char** argv){
 
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
-    gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
 
     smgr->addCameraSceneNode(0, core::vector3df(90,120,-180), core::vector3df(0,120,0));
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
     s32 defaultShader = 0;
+
     BasicShaderCallBack* mc = new BasicShaderCallBack(device);
     if (gpu){
        defaultShader = gpu->addHighLevelShaderMaterialFromFiles(
@@ -35,10 +37,17 @@ int main(int argc, char** argv){
     Librarian* lib = new Librarian(smgr, driver);
     lib->SetMaterial(defaultShader);
 
+    SAppContext context;
+    context.device = device;
+    context.counter = 0;
+
+    EventReceiver receiver(context);
+    device->setEventReceiver(&receiver);
+
     while(device->run()){
         driver->beginScene(true, true, video::SColor(255,100,101,140));
         smgr->drawAll();
-        guienv->drawAll();
+        device->getGUIEnvironment()->drawAll();
         driver->endScene();
     }
 

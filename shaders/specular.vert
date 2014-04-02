@@ -4,6 +4,7 @@ uniform vec3 u_LightPosition;
 uniform vec4 u_AmbientLightColor;
 uniform vec4 u_DiffuseLightColor;
 uniform vec4 u_SpecularLightColor;
+uniform float u_ModelShininess;
 
 void main()
 {
@@ -18,7 +19,7 @@ void main()
 
 	if (NdotL > 0.0) {
 		NdotHV = max(dot(normal, normalize(u_LightPosition)),0.0);
-		specular = u_SpecularLightColor * pow(NdotHV, gl_FrontMaterial.shininess);
+		specular = u_SpecularLightColor * pow(NdotHV, u_ModelShininess);
 	}
 
 	gl_FrontColor = normalize(u_AmbientLightColor + NdotL * u_DiffuseLightColor + specular);
