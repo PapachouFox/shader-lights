@@ -1,4 +1,7 @@
 varying vec2 v_TexCoord;
+varying vec4 v_specular;
+varying vec4 v_ambient;
+varying vec4 v_diffuse;
 
 uniform vec3 u_LightPosition;
 uniform vec4 u_AmbientLightColor;
@@ -22,7 +25,10 @@ void main()
 		specular = u_SpecularLightColor * pow(NdotHV, u_ModelShininess);
 	}
 
-	gl_FrontColor = normalize(u_AmbientLightColor + NdotL * u_DiffuseLightColor + specular);
+	v_ambient = u_AmbientLightColor;
+	v_diffuse =  NdotL * u_DiffuseLightColor;
+	v_specular = specular;
+	
 	gl_Position = ftransform();
 	v_TexCoord = gl_MultiTexCoord0.xy;	
 } 
