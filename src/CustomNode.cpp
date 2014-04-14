@@ -3,7 +3,9 @@ CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
     smgr = mgr;
     //scene::IAnimatedMesh* mesh = smgr->getMesh("../librarian/Librarian.3ds");
     //node = smgr->addAnimatedMeshSceneNode( mesh );
-    node = smgr->addSphereSceneNode(50, 128);
+    node = smgr->addSphereSceneNode(50, 64);
+    //node = smgr->addCubeSceneNode(50);
+    //node->setRotation(core::vector3df(0.f, 45.f, 0.f));
     if (node){
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         video::ITexture* texture = driver->getTexture("../textures/earthmap1k.jpg");
@@ -11,7 +13,7 @@ CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
             node->setMaterialTexture(0, texture);
         }
 
-        video::ITexture* normalMap = driver->getTexture("../textures/earthbump1k.jpg");
+        video::ITexture* normalMap = driver->getTexture("../textures/earthnormal1k.jpg");
         if (normalMap){
             node->setMaterialTexture (1, normalMap);
         }

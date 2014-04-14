@@ -32,6 +32,8 @@
     <Image Include="..\textures\earthbump1k.jpg" />
     <Image Include="..\textures\earthlights1k.jpg" />
     <Image Include="..\textures\earthmap1k.jpg" />
+    <Image Include="..\textures\earthnormal2k.png" />
+    <Image Include="..\textures\earthnormal8k.png" />
     <Image Include="..\textures\earthspec1k.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

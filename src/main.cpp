@@ -20,7 +20,7 @@ int main(int argc, char** argv){
     scene::ISceneManager* smgr = device->getSceneManager();
 
     smgr->addCameraSceneNode(0, core::vector3df(0,0,-200), core::vector3df(0,0,0));
-    scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(50, 0, -100), video::SColorf(), 0.f);
+    scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(500, 0, -100), video::SColorf(), 0.f);
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
@@ -38,12 +38,12 @@ int main(int argc, char** argv){
     CustomNode* planet = new CustomNode(smgr, driver);
     planet->SetMaterial(defaultShader);
 
-    scene::ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(core::vector3df(), 200.f, 0.001f, core::vector3df(0.f, 1.f, 0.f));
-    //scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.f, 1.f, 0.f));
+    //scene::ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(core::vector3df(), 200.f, 0.001f, core::vector3df(0.f, 1.f, 0.f));
+    scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.f, 0.1f, 0.f));
     if(anim){
         //smgr->getActiveCamera()->addAnimator(anim);
-        light->addAnimator(anim);
-        //planet->addAnimator(anim);
+        //light->addAnimator(anim);
+        planet->addAnimator(anim);
         anim->drop();
     }
 

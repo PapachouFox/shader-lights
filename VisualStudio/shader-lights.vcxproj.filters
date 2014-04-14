@@ -68,5 +68,11 @@
     <Image Include="..\textures\earthlights1k.jpg">
       <Filter>Fichiers de ressources</Filter>
     </Image>
+    <Image Include="..\textures\earthnormal2k.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\textures\earthnormal8k.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
