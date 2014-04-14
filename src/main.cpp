@@ -19,14 +19,8 @@ int main(int argc, char** argv){
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
 
-    smgr->addCameraSceneNode(0, core::vector3df(0,0,-180), core::vector3df(0,0,0));
-    scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(), video::SColorf(), 0.f);
-
-    scene::ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(core::vector3df(), 100.f, 0.001f);
-    if(anim){
-        light->addAnimator(anim);
-        anim->drop();
-    }
+    smgr->addCameraSceneNode(0, core::vector3df(0,0,-200), core::vector3df(0,0,0));
+    scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(50, 0, -100), video::SColorf(), 0.f);
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
@@ -35,14 +29,23 @@ int main(int argc, char** argv){
     BasicShaderCallBack* mc = new BasicShaderCallBack(device);
     if (gpu){
        defaultShader = gpu->addHighLevelShaderMaterialFromFiles(
-                   "../shaders/specular.vert",
+                   "../shaders/light.vert",
                    "../shaders/default.frag",
                    mc, video::EMT_SOLID, 0);
     }
     mc->drop();
 
-    CustomNode* lib = new CustomNode(smgr, driver);
-    lib->SetMaterial(defaultShader);
+    CustomNode* planet = new CustomNode(smgr, driver);
+    planet->SetMaterial(defaultShader);
+
+    scene::ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(core::vector3df(), 200.f, 0.001f, core::vector3df(0.f, 1.f, 0.f));
+    //scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.f, 1.f, 0.f));
+    if(anim){
+        //smgr->getActiveCamera()->addAnimator(anim);
+        light->addAnimator(anim);
+        //planet->addAnimator(anim);
+        anim->drop();
+    }
 
     SAppContext context;
     context.device = device;
@@ -57,10 +60,10 @@ int main(int argc, char** argv){
         device->getGUIEnvironment()->drawAll();
         driver->endScene();
 
-        light_source = light->getAbsolutePosition();
+        LIGHT_SOURCE = light->getAbsolutePosition();
     }
 
-    delete lib;
+    delete planet;
 
     device->drop();
 	return 0;

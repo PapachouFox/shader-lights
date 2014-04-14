@@ -25,11 +25,14 @@
     <None Include="..\shaders\default.frag" />
     <None Include="..\shaders\default.vert" />
     <None Include="..\shaders\diffuse.vert" />
+    <None Include="..\shaders\light.vert" />
     <None Include="..\shaders\specular.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\textures\earthbump1k.jpg" />
+    <Image Include="..\textures\earthlights1k.jpg" />
     <Image Include="..\textures\earthmap1k.jpg" />
+    <Image Include="..\textures\earthspec1k.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90A4AEAE-5E02-4584-A15F-2A95D2005653}</ProjectGuid>

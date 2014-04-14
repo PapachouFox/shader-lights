@@ -51,12 +51,21 @@
     <None Include="..\shaders\specular.vert">
       <Filter>Fichiers de ressources</Filter>
     </None>
+    <None Include="..\shaders\light.vert">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\textures\earthbump1k.jpg">
       <Filter>Fichiers de ressources</Filter>
     </Image>
     <Image Include="..\textures\earthmap1k.jpg">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\textures\earthspec1k.jpg">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\textures\earthlights1k.jpg">
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>

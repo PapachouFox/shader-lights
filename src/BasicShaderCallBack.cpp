@@ -1,7 +1,7 @@
 #include "BasicShaderCallBack.h"
 
 f32 model_shininess = 10;
-core::vector3df light_source;
+core::vector3df LIGHT_SOURCE;
 
 BasicShaderCallBack::BasicShaderCallBack(IrrlichtDevice *irrDevice){
     this->device = irrDevice;
@@ -14,7 +14,7 @@ BasicShaderCallBack::BasicShaderCallBack(IrrlichtDevice *irrDevice){
     scrollbar->setMax(50);
     scrollbar->setPos(10);
 
-    light_source = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
+    LIGHT_SOURCE = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
 }
 
 void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* services, s32 userData){
@@ -25,17 +25,17 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
     // starting the program), we must set the constants by name.
     core::matrix4 invWorld = driver->getTransform(video::ETS_WORLD);
     invWorld.makeInverse();
+    services->setVertexShaderConstant("u_WorldMatrix", driver->getTransform(video::ETS_WORLD).pointer(), 16);
     services->setVertexShaderConstant("u_WorldMatrixInv", invWorld.pointer(), 16);
 
     // set clip matrix
-    core::matrix4 worldViewProj;
-    worldViewProj = driver->getTransform(video::ETS_PROJECTION);
-    worldViewProj *= driver->getTransform(video::ETS_VIEW);
-    worldViewProj *= driver->getTransform(video::ETS_WORLD);
-    services->setVertexShaderConstant("u_ProjectionMatrix", worldViewProj.pointer(), 16);
+    services->setVertexShaderConstant("u_ViewMatrix", device->getSceneManager()->getActiveCamera()->getViewMatrix().pointer(), 16);
+    services->setVertexShaderConstant("u_ProjectionMatrix", device->getSceneManager()->getActiveCamera()->getProjectionMatrix().pointer(), 16);
 
     // set camera position
-    services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&light_source), 3);
+    core::vector3df cam = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
+    services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&LIGHT_SOURCE), 3);
+    services->setVertexShaderConstant("u_CameraPosition", reinterpret_cast<f32*>(&cam), 3);
 
     // set ambient light color (r g b a)
     video::SColorf ambientCol(0.1f,0.1f,0.1f,1.0f);
@@ -49,8 +49,12 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
 
     // set texture, for textures you can use both an int and a float setPixelShaderConstant interfaces (You need it only for an OpenGL driver).
     s32 TextureLayerID = 0;
-    services->setPixelShaderConstant("u_texture", (float*)&TextureLayerID, 1);
+    services->setPixelShaderConstant("u_texture", &TextureLayerID, 1);
     s32 NormalLayerID = 1;
-    services->setPixelShaderConstant("u_normal", (float*)&NormalLayerID, 1);
+    services->setPixelShaderConstant("u_normal", &NormalLayerID, 1);
+    s32 SpecularLayerID = 2;
+    services->setPixelShaderConstant("u_specular", &SpecularLayerID, 1);
+    s32 NightLayerID = 3;
+    services->setPixelShaderConstant("u_night", &NightLayerID, 1);
 }
 

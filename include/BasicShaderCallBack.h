@@ -4,7 +4,7 @@
 using namespace irr;
 
 extern f32 model_shininess;
-extern core::vector3df light_source;
+extern core::vector3df LIGHT_SOURCE;
 
 class BasicShaderCallBack : public video::IShaderConstantSetCallBack{
 private:

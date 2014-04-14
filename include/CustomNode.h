@@ -11,6 +11,7 @@ private:
 public:
     CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver);
     ~CustomNode();
+    void addAnimator(irr::scene::ISceneNodeAnimator* anim);
     void SetMaterial(s32 material);
 };
 

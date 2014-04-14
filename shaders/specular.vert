@@ -4,6 +4,7 @@ varying vec4 v_ambient;
 varying vec4 v_diffuse;
 
 uniform vec3 u_LightPosition;
+uniform vec3 u_CameraPosition;
 uniform vec4 u_AmbientLightColor;
 uniform vec4 u_DiffuseLightColor;
 uniform vec4 u_SpecularLightColor;
@@ -16,12 +17,12 @@ void main()
 	float NdotL,NdotHV;
 
 	normal = normalize(gl_NormalMatrix * gl_Normal);
-	lightDir = normalize(vec3(u_LightPosition));
+	lightDir = normalize(u_LightPosition - u_CameraPosition);
 
 	NdotL = max(dot(normal, lightDir), 0.0);
 
 	if (NdotL > 0.0) {
-		NdotHV = max(dot(normal, normalize(u_LightPosition)),0.0);
+		NdotHV = max(dot(normal, normalize(lightDir)),0.0);
 		specular = u_SpecularLightColor * pow(NdotHV, u_ModelShininess);
 	}
 

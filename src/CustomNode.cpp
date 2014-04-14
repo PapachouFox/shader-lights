@@ -13,10 +13,23 @@ CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
 
         video::ITexture* normalMap = driver->getTexture("../textures/earthbump1k.jpg");
         if (normalMap){
-            driver->makeNormalMapTexture(normalMap, 10.0f);
             node->setMaterialTexture (1, normalMap);
         }
+
+        video::ITexture* specularMap = driver->getTexture("../textures/earthspec1k.jpg");
+        if (specularMap){
+            node->setMaterialTexture (2, specularMap);
+        }
+
+        video::ITexture* nightMap = driver->getTexture("../textures/earthlights1k.jpg");
+        if (nightMap){
+            node->setMaterialTexture (3, nightMap);
+        }
     }
+}
+
+void CustomNode::addAnimator(irr::scene::ISceneNodeAnimator* anim){
+    node->addAnimator(anim);
 }
 
 CustomNode::~CustomNode(){
