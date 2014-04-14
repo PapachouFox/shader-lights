@@ -11,7 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\BasicShaderCallBack.cpp" />
+    <ClCompile Include="..\src\CustomNode.cpp" />
+    <ClCompile Include="..\src\EventReceiver.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\BasicShaderCallBack.h" />
+    <ClInclude Include="..\include\CustomNode.h" />
+    <ClInclude Include="..\include\EventReceiver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shaders\default.frag" />
+    <None Include="..\shaders\default.vert" />
+    <None Include="..\shaders\diffuse.vert" />
+    <None Include="..\shaders\specular.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\textures\earthbump1k.jpg" />
+    <Image Include="..\textures\earthmap1k.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90A4AEAE-5E02-4584-A15F-2A95D2005653}</ProjectGuid>
@@ -42,19 +60,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Chris\Documents\ESGI 2013-2014 - 5IJV\01 - Maths\Semestre 2\Projet\shader-lights\VisualStudio\irrlicht-1.8\include;$(IncludePath)</IncludePath>
+    <IncludePath>.\irrlicht-1.8\include;..\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalUsingDirectories>C:\Users\Chris\Documents\ESGI 2013-2014 - 5IJV\01 - Maths\Semestre 2\Projet\shader-lights\VisualStudio\irrlicht-1.8\include;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalUsingDirectories>.\irrlicht-1.8\include;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Chris\Documents\ESGI 2013-2014 - 5IJV\01 - Maths\Semestre 2\Projet\shader-lights\VisualStudio\irrlicht-1.8\lib\Win32-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\irrlicht-1.8\lib\Win32-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Irrlicht.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>copy irrlicht-1.8\bin\Win32-VisualStudio\Irrlicht.dll ..\Debug</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

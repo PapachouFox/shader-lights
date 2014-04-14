@@ -17,5 +17,47 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\BasicShaderCallBack.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CustomNode.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EventReceiver.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\BasicShaderCallBack.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CustomNode.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EventReceiver.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shaders\default.frag">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\shaders\default.vert">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\shaders\diffuse.vert">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\shaders\specular.vert">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\textures\earthbump1k.jpg">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="..\textures\earthmap1k.jpg">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
