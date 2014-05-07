@@ -26,7 +26,7 @@ void main()
     vec3 offcolor = texture2D(u_night, gl_TexCoord[0].st).rgb;
 
     normal = normalize(v_fragNormalMatrix * v_fragNormal);
-    normal = normalize((ncolor * 2.0) - 1.0);
+    //normal = normalize((ncolor * 2.0) - 1.0);
     float diffuseCoeff = max(0.0, dot(normal, v_surfaceToLight));
     
     if(diffuseCoeff > 0.0 && u_ModelShininess > 0.0){
@@ -39,10 +39,12 @@ void main()
     ambient = u_AmbientLightColor.xyz;
 
     float attenuation = 1.0 / (1.0 + 0.00002 * pow(v_lightDistance, 2.0));
-    color = color * ambient + (diffuse * color + specular * (scolor + 0.1));
     if(diffuse.x == 0.0){
-        color = offcolor * ambient;
+        color = color * ambient;
+    }else{
+        color = color * ambient + (diffuse * color + specular * (scolor + 0.1));
     }
+    
 
     gl_FragColor = vec4(color, 1.0);
 }
