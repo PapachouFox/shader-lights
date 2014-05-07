@@ -19,8 +19,9 @@ int main(int argc, char** argv){
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
 
-    smgr->addCameraSceneNodeFPS();//(0, core::vector3df(0,0,-200), core::vector3df(0,0,0));
-
+    scene::ICameraSceneNode* cam = smgr->addCameraSceneNodeFPS();
+    cam->setPosition(core::vector3df(0,0,-200));//(0, core::vector3df(0,0,-200), core::vector3df(0,0,0));
+    cam->setFarValue(20000.f);
 
     //shaders loading
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
@@ -37,13 +38,22 @@ int main(int argc, char** argv){
 
     CustomNode* planet = new CustomNode(smgr, driver);
     planet->SetMaterial(defaultShader);
-    scene::ILightSceneNode* light = smgr->addLightSceneNode(planet->getNode(), core::vector3df(), video::SColorf(), 0.f);
+    scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(200.f, 0.f, 0.f), video::SColorf(), 0.f);
+    irr::scene::IMeshSceneNode* sun = smgr->addSphereSceneNode(50, 64, light);
+    sun->setMaterialFlag(video::EMF_LIGHTING, false);
+    video::ITexture* texture = driver->getTexture("../textures/sunmap.png");
+    if(texture){
+        sun->setMaterialTexture(0, texture);
+    }
+
+    video::ITexture* text = driver->getTexture("../textures/skybox_bottom.bmp");
+    scene::ISceneNode* skybox = smgr->addSkyBoxSceneNode(text,text,text,text,text,text);
 
     scene::ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(core::vector3df(), 200.f, 0.001f, core::vector3df(0.f, 1.f, 0.f));
     //scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(core::vector3df(0.f, 0.1f, 0.f));
     if(anim){
-        smgr->getActiveCamera()->addAnimator(anim);
-        //light->addAnimator(anim);
+        //smgr->getActiveCamera()->addAnimator(anim);
+        light->addAnimator(anim);
         //planet->addAnimator(anim);
         anim->drop();
     }

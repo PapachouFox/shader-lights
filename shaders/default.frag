@@ -27,7 +27,7 @@ void main()
 
     normal = v_fragNormal;
     //apply normal map
-    vec3 bump = normalize((ncolor * 2.0) - 1.0);
+    //vec3 bump = normalize((ncolor * 2.0) - 1.0);
 
     float diffuseCoeff = max(0.0, dot(normal, v_surfaceToLight));
     
