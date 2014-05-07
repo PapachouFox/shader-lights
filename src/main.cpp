@@ -20,7 +20,7 @@ int main(int argc, char** argv){
     scene::ISceneManager* smgr = device->getSceneManager();
 
     scene::ICameraSceneNode* cam = smgr->addCameraSceneNodeFPS();
-    cam->setPosition(core::vector3df(0,0,-200));//(0, core::vector3df(0,0,-200), core::vector3df(0,0,0));
+    cam->setPosition(core::vector3df(0,0,-100));//(0, core::vector3df(0,0,-200), core::vector3df(0,0,0));
     cam->setFarValue(20000.f);
 
     //shaders loading
@@ -36,7 +36,7 @@ int main(int argc, char** argv){
     }
     mc->drop();
 
-    CustomNode* planet = new CustomNode(smgr, driver);
+    CustomNode* planet = new CustomNode(smgr, driver, device);
     planet->SetMaterial(defaultShader);
     scene::ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(200.f, 0.f, 0.f), video::SColorf(), 0.f);
     irr::scene::IMeshSceneNode* sun = smgr->addSphereSceneNode(50, 64, light);

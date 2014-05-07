@@ -1,5 +1,5 @@
 #include "CustomNode.h"
-CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
+CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver, IrrlichtDevice* device){
     smgr = mgr;
     //scene::IAnimatedMesh* mesh = smgr->getMesh("../librarian/Librarian.3ds");
     //node = smgr->addAnimatedMeshSceneNode( mesh );
@@ -32,6 +32,26 @@ CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
             node->setMaterialTexture (3, nightMap);
         }
     }
+
+    clouds = smgr->addSphereSceneNode(51, 64, node);
+    video::ITexture* cloudsTexture = driver->getTexture("../textures/earthclouds2k.jpg");
+    if(cloudsTexture){
+        clouds->setMaterialTexture(0, cloudsTexture);
+    }
+
+    video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
+    s32 defaultShader = 0;
+
+    BasicShaderCallBack* mc = new BasicShaderCallBack(device);
+    if (gpu){
+       defaultShader = gpu->addHighLevelShaderMaterialFromFiles(
+                   "../shaders/clouds.vert",
+                   "../shaders/clouds.frag",
+                   mc, video::EMT_TRANSPARENT_ALPHA_CHANNEL, 0);
+    }
+    mc->drop();
+
+    clouds->setMaterialType((video::E_MATERIAL_TYPE)defaultShader);
 }
 
 void CustomNode::addAnimator(irr::scene::ISceneNodeAnimator* anim){
