@@ -25,8 +25,10 @@ void main()
     vec3 scolor = texture2D(u_specular, gl_TexCoord[0].st).rgb;
     vec3 offcolor = texture2D(u_night, gl_TexCoord[0].st).rgb;
 
-    normal = normalize(v_fragNormalMatrix * v_fragNormal);
-    //normal = normalize((ncolor * 2.0) - 1.0);
+    normal = v_fragNormal;
+    //apply normal map
+    vec3 bump = normalize((ncolor * 2.0) - 1.0);
+
     float diffuseCoeff = max(0.0, dot(normal, v_surfaceToLight));
     
     if(diffuseCoeff > 0.0 && u_ModelShininess > 0.0){
@@ -38,13 +40,21 @@ void main()
     diffuse = diffuseCoeff * u_DiffuseLightColor.xyz;
     ambient = u_AmbientLightColor.xyz;
 
-    float attenuation = 1.0 / (1.0 + 0.00002 * pow(v_lightDistance, 2.0));
+    //quadratic attenuation
+    float quadratic = 0.00002;
+    float attenuation = 1.0 / (quadratic * pow(v_lightDistance, 2.0));
+
     if(diffuse.x == 0.0){
-        color = color * ambient;
+        color =  color * ambient;
     }else{
+        //apply attenuation
+        diffuse = diffuse * attenuation;
+        specular = specular * attenuation;
+        //cancel specular map
+        //scolor = vec3(0.9, 0.9, 0.9);
+
         color = color * ambient + (diffuse * color + specular * (scolor + 0.1));
     }
-    
 
     gl_FragColor = vec4(color, 1.0);
 }

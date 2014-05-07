@@ -13,6 +13,7 @@ public:
     ~CustomNode();
     void addAnimator(irr::scene::ISceneNodeAnimator* anim);
     void SetMaterial(s32 material);
+    scene::IMeshSceneNode* getNode();
 };
 
 #endif

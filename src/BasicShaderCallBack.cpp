@@ -30,10 +30,12 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
 
     // set clip matrix
     services->setVertexShaderConstant("u_ViewMatrix", device->getSceneManager()->getActiveCamera()->getViewMatrix().pointer(), 16);
+    services->setVertexShaderConstant("u_ModelMatrix", driver->getTransform(video::ETS_WORLD).pointer(), 16);
     services->setVertexShaderConstant("u_ProjectionMatrix", device->getSceneManager()->getActiveCamera()->getProjectionMatrix().pointer(), 16);
 
     // set camera position
     core::vector3df cam = device->getSceneManager()->getActiveCamera()->getAbsolutePosition();
+
     services->setVertexShaderConstant("u_LightPosition", reinterpret_cast<f32*>(&LIGHT_SOURCE), 3);
     services->setVertexShaderConstant("u_CameraPosition", reinterpret_cast<f32*>(&cam), 3);
 
@@ -42,7 +44,7 @@ void BasicShaderCallBack::OnSetConstants(video::IMaterialRendererServices* servi
     services->setVertexShaderConstant("u_AmbientLightColor", reinterpret_cast<f32*>(&ambientCol), 4);
     video::SColorf diffuseCol(0.5f,0.5f,0.5f,1.0f);
     services->setVertexShaderConstant("u_DiffuseLightColor", reinterpret_cast<f32*>(&diffuseCol), 4);
-    video::SColorf specularCol(1.0f,1.0f,1.0f,1.0f);
+    video::SColorf specularCol(0.8f,0.8f,0.8f,1.f);
     services->setVertexShaderConstant("u_SpecularLightColor", reinterpret_cast<f32*>(&specularCol), 4);
 
     services->setVertexShaderConstant("u_ModelShininess", &model_shininess, 1);

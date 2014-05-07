@@ -4,6 +4,10 @@ CustomNode::CustomNode(scene::ISceneManager* mgr, video::IVideoDriver* driver){
     //scene::IAnimatedMesh* mesh = smgr->getMesh("../librarian/Librarian.3ds");
     //node = smgr->addAnimatedMeshSceneNode( mesh );
     node = smgr->addSphereSceneNode(50, 64);
+
+    node->getMaterial(0).Shininess = 100.f;
+    node->getMaterial(0).AmbientColor = irr::video::SColor(255, 255, 255, 255);
+    node->getMaterial(0).DiffuseColor = irr::video::SColor(255, 255, 0, 0);
     //node = smgr->addCubeSceneNode(50);
     //node->setRotation(core::vector3df(0.f, 45.f, 0.f));
     if (node){
@@ -40,4 +44,8 @@ CustomNode::~CustomNode(){
 
 void CustomNode::SetMaterial(s32 material){
     node->setMaterialType((video::E_MATERIAL_TYPE)material);
+}
+
+irr::scene::IMeshSceneNode* CustomNode::getNode(){
+    return node;
 }

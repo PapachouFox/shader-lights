@@ -12,7 +12,7 @@ void main()
     v_fragNormal = gl_Normal;
     v_fragNormalMatrix = gl_NormalMatrix;
 
-    vec4 surfacePos = gl_ModelViewMatrix * gl_Vertex;
+    vec4 surfacePos = gl_ModelViewProjectionMatrix * gl_Vertex;
     v_surfaceToLight = normalize(u_LightPosition - surfacePos.xyz);
     v_surfaceToCamera = normalize(u_CameraPosition - surfacePos.xyz);    
     
